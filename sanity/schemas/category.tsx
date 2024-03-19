@@ -1,6 +1,13 @@
 import { defineType } from "sanity";
+import { type PortableTextBlock } from "next-sanity";
 
-export default defineType({
+export interface CategoryI {
+  _id: string;
+  title: string;
+  description: PortableTextBlock[];
+}
+
+export const categoryTypeDefinition = defineType({
   name: "category",
   title: "Category",
   type: "document",
@@ -16,4 +23,10 @@ export default defineType({
       type: "text",
     },
   ],
+
+  preview: {
+    select: {
+      title: "title",
+    },
+  },
 });

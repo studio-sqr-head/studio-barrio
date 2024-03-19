@@ -1,8 +1,33 @@
 import { defineType } from "sanity";
+import { type PortableTextBlock } from "next-sanity";
+import type { Image, Slug } from "sanity";
 
-import categoryType from "./category";
+import { categoryTypeDefinition, type CategoryI } from "./category";
 
-export default defineType({
+export interface ImageI extends Image {
+  alt: string;
+}
+
+export interface LinkI {
+  href: string;
+  linkText: string;
+}
+
+export interface ProjectI {
+  _id: string;
+  title: string;
+  slug: Slug;
+  preview: PortableTextBlock[];
+  mainImage: ImageI;
+  images: ImageI[];
+  category: CategoryI[];
+  publishedAt: string;
+  body: PortableTextBlock[];
+  link: LinkI;
+  relatedProjects: ProjectI[];
+}
+
+export const projectTypeDefinition = defineType({
   name: "project",
   title: "Project",
   type: "document",
@@ -11,6 +36,9 @@ export default defineType({
       name: "title",
       title: "Title",
       type: "string",
+      validation(rule) {
+        return rule.required();
+      },
     },
     {
       name: "slug",
@@ -20,12 +48,22 @@ export default defineType({
         source: "title",
         maxLength: 96,
       },
+      validation(rule) {
+        return rule.required();
+      },
     },
     {
       name: "preview",
       title: "Preview",
-      type: "string",
+      type: "array",
+      of: [{ type: "block" }],
+      description:
+        "A preview of the project, used in the project list. (max 100 characters)",
+      validation(rule) {
+        return rule.required() && rule.max(100);
+      },
     },
+
     {
       name: "mainImage",
       title: "Main image",
@@ -38,6 +76,9 @@ export default defineType({
           description: "Important for SEO and accessiblity.",
         },
       ],
+      validation(rule) {
+        return rule.required();
+      },
     },
     {
       name: "images",
@@ -61,35 +102,63 @@ export default defineType({
       name: "category",
       title: "Category",
       type: "array",
-      of: [{ type: "reference", to: { type: categoryType.name } }],
+      of: [{ type: "reference", to: { type: categoryTypeDefinition.name } }],
     },
     {
       name: "publishedAt",
       title: "Published at",
       type: "datetime",
+      description:
+        "The date the project was published to my portfolio. (not the date of the project itself).",
     },
     {
-      name: "brief",
-      title: "Brief",
-      type: "text",
+      name: "body",
+      title: "Body",
+      type: "array",
+      description: "The main content of the project.",
+      of: [{ type: "block" }],
+      validation(rule) {
+        return rule.required();
+      },
     },
-
     {
-      name: "solution",
-      title: "Solution",
-      type: "text",
+      name: "link",
+      title: "Link",
+      type: "object",
+      description: "Link to the project external page",
+      fields: [
+        {
+          name: "href",
+          title: "URL",
+          type: "url",
+          description: "Link to the project external page",
+        },
+        {
+          name: "linkText",
+          title: "Link text",
+          type: "string",
+          description: "Text to display for the link",
+        },
+      ],
+    },
+    {
+      name: "relatedProjects",
+      title: "Related projects",
+      type: "array",
+      of: [{ type: "reference", to: { type: "project" } }],
     },
   ],
 
   preview: {
     select: {
       title: "title",
-      author: "author.name",
       media: "mainImage",
     },
     prepare(selection: any) {
-      const { author } = selection;
-      return { ...selection, subtitle: author && `by ${author}` };
+      return {
+        title: selection.title,
+        media: selection.media,
+      };
     },
   },
 });

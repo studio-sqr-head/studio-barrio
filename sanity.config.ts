@@ -5,15 +5,19 @@
 
 import { PluginOptions, defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
-import { apiVersion, dataset, projectId, studioUrl } from "@/sanity/lib/api";
-import {} from "@/sanity/schemas";
 
-export default defineConfig({
+import { dataset, projectId, studioUrl } from "@/sanity/lib/api";
+import { schemas } from "@/sanity/schemas";
+
+const config = defineConfig({
   basePath: studioUrl,
   projectId,
   dataset,
-  schema: {
-    types: [],
-  },
   plugins: [structureTool()].filter(Boolean) as PluginOptions[],
+  schema: {
+    types: [...schemas],
+  },
 });
+
+export { config };
+export type SanityValues = typeof config;

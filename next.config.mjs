@@ -1,15 +1,6 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-  redirects: async () => {
-    return [
-      {
-        source: "/",
-        destination: "/portfolio",
-        permanent: false,
-      },
-    ];
-  },
   images: {
     remotePatterns: [
       // Allow images from Sanity

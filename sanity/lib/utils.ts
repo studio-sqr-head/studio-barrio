@@ -1,17 +1,16 @@
 import imageUrlBuilder from "@sanity/image-url";
-import { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import { SanityImageObject } from "@sanity/image-url/lib/types/types";
 import { dataset, projectId } from "@/sanity/lib/api";
 
-export const generateImageUrl = (image: SanityImageSource) => {
-  if (projectId === undefined || dataset === undefined) {
-    throw new Error(
-      "Missing environment variable: NEXT_PUBLIC_SANITY_PROJECT_ID or NEXT_PUBLIC_SANITY_DATASET"
-    );
-  }
-  const builder = imageUrlBuilder({
-    projectId,
-    dataset,
-  });
+const imageBuilder = imageUrlBuilder({
+  projectId,
+  dataset,
+});
 
-  return builder.image(image).url();
+export const generateImageUrl = ({
+  image,
+}: {
+  image: SanityImageObject;
+}): typeof imageBuilder => {
+  return imageBuilder.image(image).auto("format").fit("max");
 };

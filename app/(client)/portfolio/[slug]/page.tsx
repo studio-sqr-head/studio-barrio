@@ -1,13 +1,14 @@
 import groq from "groq";
-import { Image } from "next-sanity/image";
 import { PortableText } from "@portabletext/react";
+import { notFound } from "next/navigation";
 
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { projectQuery } from "@/sanity/lib/queries";
 import { ProjectI } from "@/sanity/schemas";
 import { generateImageUrl } from "@/sanity/lib/utils";
-import { Chip } from "@/app/components/chip";
-import { ProjectCard } from "@/app/components/project-card";
+import { Chip } from "@/app/(client)/components/chip";
+import { ListItem } from "@/app/(client)/components/list-item";
+import { Image } from "@/app/(client)/components/image";
 
 export async function generateStaticParams() {
   return sanityFetch<{ slug: string }[]>({
@@ -25,65 +26,72 @@ export default async function PortfolioPage({
   ]);
   const { category, title, body, images } = project ?? {};
 
+  if (!project?._id) {
+    return notFound();
+  }
+
   return (
-    <div className="container">
-      <div className="mb-24">
-        <div className="grid md:grid-cols-2 gap-8 mb-4">
-          <div>
-            <h1 className="text-4xl font-bold mb-2">{title}</h1>
-            <div className="flex mb-4">
-              {category?.map(({ title }) => (
-                <span key={title} className="mr-2">
-                  <Chip key={title} label={title} />
-                </span>
-              ))}
-            </div>
-
-            <PortableText value={body} />
+    <div>
+      <div className="grid md:grid-cols-2 gap-8">
+        <div className="flex flex-col gap-4">
+          <div className="flex">
+            {category?.map(({ _id, title }) => (
+              <span key={`${_id}-${Math.random().toString(36).substring(7)}`}>
+                <Chip key={title} label={title} />
+              </span>
+            ))}
           </div>
 
-          <div>
-            {images?.map(({ alt, asset }) => {
-              const src = generateImageUrl(asset?._ref as string);
-              return (
+          <PortableText value={body} />
+        </div>
+
+        <div className="grid grid-cols-1 gap-4">
+          {images?.map((image, key) => {
+            return (
+              <div className={`mb-4`} key={key}>
                 <Image
-                  key={asset?._key}
-                  src={src}
-                  alt={alt ?? ""}
-                  width={1000}
-                  height={600}
-                  className="mb-4 rounded-md"
+                  alt={image.alt || "Project Image"}
+                  image={image}
+                  width={500}
+                  height={400}
+                  size="(min-width: 640px) 500px, 100vw"
                 />
-              );
-            })}
-          </div>
+              </div>
+            );
+          })}
         </div>
       </div>
 
-      <h2 className="text-2xl font-bold mb-4">Similar Projects</h2>
+      <hr className="border-t border-gray-200 my-12" />
 
-      <div className="grid sm:grid-cols-3 gap-8">
+      <section>
         {project?.relatedProjects?.map(
           ({ _id, title, mainImage, slug, preview }) => {
-            const src = generateImageUrl(mainImage?.asset?._ref as string);
             return (
-              <div key={_id}>
-                <ProjectCard
-                  alt={mainImage?.alt ?? ""}
+              <div
+                key={`${_id}-related-project`}
+                className="flex flex-col gap-4"
+              >
+                <ListItem
+                  cardImage={
+                    <Image
+                      image={mainImage}
+                      alt={mainImage.alt}
+                      width={300}
+                      height={200}
+                      size="30vw"
+                    />
+                  }
                   title={title}
                   category={category}
-                  link={{
-                    href: `/portfolio/${slug.current}`,
-                    linkText: "View Case",
-                  }}
-                  imageSrc={src}
                   preview={preview}
+                  href={`/portfolio/${slug.current}`}
                 />
               </div>
             );
           }
         )}
-      </div>
+      </section>
     </div>
   );
 }

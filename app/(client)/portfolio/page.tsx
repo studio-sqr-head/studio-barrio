@@ -1,11 +1,8 @@
-import Link from "next/link";
-
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { allProjectsQuery } from "@/sanity/lib/queries";
 import { ProjectI } from "@/sanity/schemas";
-import { generateImageUrl } from "@/sanity/lib/utils";
-
-import { ProjectCard } from "@/app/components/project-card";
+import { ListItem } from "@/app/(client)/components/list-item";
+import { Image } from "@/app/(client)/components/image";
 
 export default async function Portfolio() {
   const [projects] = await Promise.all([
@@ -14,35 +11,46 @@ export default async function Portfolio() {
 
   return (
     <div className="flex flex-col">
-      <ul className="grid sm:grid-cols-6 gap-12">
+      <ul className="grid sm:grid-cols-1 gap-12">
         {projects?.map(
-          ({ slug, _id, title, mainImage, preview, category, link }, index) => {
-            const src = generateImageUrl(mainImage?.asset?._ref as string);
-
+          (
+            {
+              slug: { current: slug },
+              _id,
+              title,
+              mainImage,
+              preview,
+              category,
+            },
+            index
+          ) => {
             return (
-              <li
-                key={_id}
-                className={`flex flex-col ${
-                  index < 2 ? "sm:col-span-3" : "sm:col-span-2"
-                } gap-4`}
-              >
-                <ProjectCard
-                  imageSrc={src}
-                  alt={mainImage?.alt ?? ""}
-                  title={title}
-                  category={category}
-                  link={link}
-                  preview={preview}
-                />
-
-                <div className="flex justify-start">
-                  <Link href={`/portfolio/${slug.current}`}>
-                    <button className="bg-orange-500 text-white px-3 py-2 rounded-md text-sm">
-                      View Case
-                    </button>
-                  </Link>
-                </div>
-              </li>
+              <>
+                <li
+                  key={`${_id}-${Math.random().toString(36).substring(7)}`}
+                  className={`flex items-center ${
+                    index < projects.length - 1
+                      ? "border-b border-gray-200 pb-12"
+                      : ""
+                  }`}
+                >
+                  <ListItem
+                    cardImage={
+                      <Image
+                        image={mainImage}
+                        alt={mainImage.alt}
+                        width={400}
+                        height={300}
+                        size="(min-width: 640px) 400px, 100vw"
+                      />
+                    }
+                    title={title}
+                    category={category}
+                    preview={preview}
+                    href={`/portfolio/${slug}`}
+                  />
+                </li>
+              </>
             );
           }
         )}

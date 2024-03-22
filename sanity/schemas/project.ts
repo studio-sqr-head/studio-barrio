@@ -1,10 +1,11 @@
 import { defineType } from "sanity";
 import { type PortableTextBlock } from "next-sanity";
-import type { Image, Slug } from "sanity";
+import { SanityImageObject } from "@sanity/image-url/lib/types/types";
+import type { Slug } from "sanity";
 
 import { categoryTypeDefinition, type CategoryI } from "./category";
 
-export interface ImageI extends Image {
+export interface ImageI extends SanityImageObject {
   alt: string;
 }
 
@@ -58,9 +59,17 @@ export const projectTypeDefinition = defineType({
       type: "array",
       of: [{ type: "block" }],
       description:
-        "A preview of the project, used in the project list. (max 100 characters)",
+        "A preview of the project, used in the project list. (max 500 characters)",
       validation(rule) {
-        return rule.required() && rule.max(100);
+        rule?.max;
+        return (
+          rule.required() &&
+          rule
+            .required()
+            .min(10)
+            .max(500)
+            .warning("Preview should be between 10 and 509 characters")
+        );
       },
     },
 
@@ -76,9 +85,14 @@ export const projectTypeDefinition = defineType({
           description: "Important for SEO and accessiblity.",
         },
       ],
-      validation(rule) {
-        return rule.required();
+
+      options: {
+        hotspot: true, // Enables the selection of a focus area on the image
       },
+      validation: (Rule) =>
+        Rule.required()
+          .error("Main image is required")
+          .warning("Should have an alt attribute."),
     },
     {
       name: "images",
@@ -97,12 +111,18 @@ export const projectTypeDefinition = defineType({
           ],
         },
       ],
+      validation(rule) {
+        return rule.required();
+      },
     },
     {
       name: "category",
       title: "Category",
       type: "array",
       of: [{ type: "reference", to: { type: categoryTypeDefinition.name } }],
+      validation(rule) {
+        return rule.required();
+      },
     },
     {
       name: "publishedAt",
@@ -132,14 +152,23 @@ export const projectTypeDefinition = defineType({
           title: "URL",
           type: "url",
           description: "Link to the project external page",
+          validation(rule) {
+            return rule.required();
+          },
         },
         {
           name: "linkText",
           title: "Link text",
           type: "string",
           description: "Text to display for the link",
+          validation(rule) {
+            return rule.required();
+          },
         },
       ],
+      validation(rule) {
+        return rule.required();
+      },
     },
     {
       name: "relatedProjects",

@@ -1,42 +1,77 @@
 import type { Config } from "tailwindcss";
 
-const config = {
-  content: ["./app/**/*.{ts,tsx}", "./sanity/**/*.{ts,tsx}"],
+const config: Config = {
+  content: [
+    "./app/**/*.{ts,tsx}",
+    "./sanity/**/*.{ts,tsx}",
+    "@/styles/**/*.{ts,tsx}",
+  ],
   theme: {
+    textColor: {
+      primary: "#000000",
+      secondary: "#313131",
+      tertiary: "#828282",
+      orange: "#FF7C4D",
+    },
     colors: {
       white: "#FFFFFF",
       black: "#000000",
       transparent: "transparent",
       current: "currentColor",
-      orange: {
+      primary: {
         50: "#FFF8F2",
-        100: "#FEE9E0",
-        200: "#FED0C0",
-        300: "#FDB79F",
-        400: "#FD8F6E",
+        100: "#FFE9D9",
+        200: "#FFDABF",
+        300: "#FFBC8C",
+        400: "#FF7F33",
         500: "#FF7C4D",
-        600: "#E66E45",
-        700: "#B95438",
-        800: "#8D3A2B",
-        900: "#732E22",
+        600: "#D33C0D",
+        700: "#8C2909",
+        800: "#691F07",
+        900: "#461505",
+      },
+      secondary: {
+        50: "#F4F7F8",
+        100: "#EAEFF2",
+        200: "#C4D3DA",
+        300: "#9EB7C3",
+        400: "#537E97",
+        500: "#08456B",
+        600: "#073E61",
+        700: "#052A41",
+        800: "#041E30",
+        900: "#03141F",
+      },
+      tertiary: {
+        50: "#F7F7F7",
+        100: "#EEEEEE",
+        200: "#D4D4D4",
+        300: "#BABABA",
+        400: "#868686",
+        500: "#515151",
+        600: "#494949",
+        700: "#313131",
+        800: "#252525",
+        900: "#191919",
       },
       gray: {
         50: "#F9FAFB",
-        100: "#F3F4F6",
-        200: "#E5E7EB",
-        300: "#D1D5DB",
-        400: "#9CA3AF",
-        500: "#6B7280",
-        600: "#4B5563",
-        700: "#374151",
-        800: "#1F2937",
-        900: "#111827",
+        100: "#F0F0F0",
+        200: "#DFE4EA",
+        300: "#C4CCD4",
+        400: "#93A1B1",
+        500: "#657381",
+        600: "#576574",
+        700: "#364349",
+        800: "#273238",
+        900: "#182328",
       },
     },
 
     extend: {
       fontFamily: {
-        sans: ["var(--font-inter)"],
+        montserrat: ["var(--font-montserrat)"],
+        mono: ["var(--font-arimo)"],
       },
     },
   },
@@ -44,7 +79,6 @@ const config = {
     hoverOnlyWhenSupported: true,
   },
   plugins: [],
-} satisfies Config;
+};
 
-export { config };
 export default config;

@@ -15,7 +15,10 @@ export const projectFields = groq`
     body,
     publishedAt,
     images,
-    link,
+    link {
+        href,
+        linkText,
+    },
     category[]-> {
         ${categoryFields}
     },
@@ -25,6 +28,10 @@ export const projectFields = groq`
         slug,
         mainImage,
         preview,
+        link {
+            href,
+            linkText,
+        },
     }
 `;
 
@@ -34,4 +41,26 @@ export const allProjectsQuery = groq`*[_type == "project"] | order(publishedAt d
 
 export const projectQuery = groq`*[_type == "project" && slug.current == $slug] [0] {
     ${projectFields}
+}`;
+
+export const metadataQuery = groq`*[_type == "metadata"] [0] {
+    title,
+    description,
+    keywords,
+    author,
+    image,
+    "ogImage": ogImage.asset->url,
+}`;
+
+export const headerQuery = groq`*[_type == "header"] [0] {
+    title,
+    description,
+    navItems
+}`;
+
+export const footerQuery = groq`*[_type == "footer"] [0] {
+    email,
+    phone,
+    kvk,
+    name,
 }`;

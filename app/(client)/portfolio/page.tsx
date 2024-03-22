@@ -34,15 +34,7 @@ export default async function Portfolio() {
                 }`}
               >
                 <ListItem
-                  cardImage={
-                    <Image
-                      image={mainImage}
-                      alt={mainImage.alt}
-                      width={400}
-                      height={300}
-                      size="(min-width: 640px) 400px, 100vw"
-                    />
-                  }
+                  cardImage={<Image image={mainImage} alt={mainImage.alt} />}
                   title={title}
                   category={category}
                   preview={preview}

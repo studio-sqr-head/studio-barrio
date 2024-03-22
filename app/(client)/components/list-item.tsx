@@ -20,11 +20,11 @@ export const ListItem = ({
 }) => {
   return (
     <Link href={href} className="cursor-pointer flex sm:flex-row flex-col">
-      <div className="flex-shrink-0 mb-3 sm:mb-0 sm:mr-12 mr-0 flex justify-center">
+      <div className="mb-3 sm:mb-0 sm:mr-12 mr-0 w-full sm:w-1/3">
         {cardImage}
       </div>
 
-      <div className="flex flex-col justify-center gap-3">
+      <div className="flex flex-col justify-center gap-3 w-2/3">
         <Typography variant="custom" className="text-3xl">
           {title}
         </Typography>

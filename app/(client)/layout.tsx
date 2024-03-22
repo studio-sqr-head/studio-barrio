@@ -55,7 +55,7 @@ export default async function RootLayout({
         <section className="flex flex-col min-h-screen w-full">
           <Header title={title} description={description} navItems={navItems} />
 
-          <main className="flex-grow mx-auto max-w-7xl p-6 sm:p-8 lg:p-12">
+          <main className="flex-grow mx-auto max-w-7xl p-8 lg:p-12">
             {children}
           </main>
           <Footer

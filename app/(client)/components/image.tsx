@@ -5,41 +5,33 @@ import { generateImageUrl } from "@/sanity/lib/utils";
 
 export interface SanityImageProps {
   image?: SanityImageObject;
-  width?: number;
-  height?: number;
-  size?: string;
   alt?: string;
 }
 
-export function Image({
-  image,
-  width = 2000,
-  height = 1500,
-  size,
-  alt = "Cover image",
-}: SanityImageProps) {
+export function Image({ image, alt = "Cover image" }: SanityImageProps) {
   if (!image) {
     return null;
   }
-  const img = generateImageUrl({ image })?.height(height).width(width);
+  const img = generateImageUrl({ image });
   const imageUrl = img?.url();
   const blurImageUrl = img?.blur(20).url();
 
   return (
-    <>
+    <div
+      className="relative overflow-hidden rounded-lg shadow-lg bg-gray-100"
+      style={{ width: "100%", aspectRatio: "16/9", height: "auto" }}
+    >
       {imageUrl && (
         <NextImage
           draggable={false}
-          className="image"
           alt={alt}
-          width={width}
-          height={height}
-          sizes={size}
+          fill={true}
           src={imageUrl}
           placeholder="blur"
+          className="object-cover w-full h-full transition-transform duration-300 transform-gpu hover:scale-105 hover:shadow-xl"
           blurDataURL={blurImageUrl}
         />
       )}
-    </>
+    </div>
   );
 }

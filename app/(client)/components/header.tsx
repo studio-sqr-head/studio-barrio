@@ -18,20 +18,20 @@ export const Header = ({ title, description, navItems }: HeaderI) => {
           <Typography variant="h1" color="orange" className="font-montserrat">
             {title}
           </Typography>
-          <Typography variant="subtitle1" className="font-arimo">
-            {description}
-          </Typography>
+          <Typography variant="subtitle2">{description}</Typography>
         </div>
         <nav>
-          <ul className="flex gap-8 items-center">
+          <div className="flex gap-4 items-start sm:flex-row flex-col sm:items-center sm:gap-8">
             {navItems?.map(({ slug, title }) => {
-              console.log(slug);
               return (
                 <Link href={`/${slug}`} key={`${title}-${slug}`}>
                   <div className={`cursor-pointer`}>
                     <Typography
-                      variant="body1"
-                      color={isActivePath(slug) ? "orange" : "gray"}
+                      variant="custom"
+                      color={isActivePath(slug) ? "primary" : "secondary"}
+                      className={`font-arimo ${
+                        isActivePath(slug) ? "font-bold" : ""
+                      }`}
                     >
                       {title}
                     </Typography>
@@ -39,11 +39,11 @@ export const Header = ({ title, description, navItems }: HeaderI) => {
                 </Link>
               );
             })}
-          </ul>
+          </div>
         </nav>
       </div>
-      <div className="mx-auto max-w-7xl p-6 sm:p-8 lg:p-12">
-        <Typography variant="custom" className="text-6xl">
+      <div className="mx-auto max-w-7xl p-8 lg:p-12">
+        <Typography variant="custom" className="text-4xl sm:text-6xl">
           {pathname
             .split("/")
             .pop()

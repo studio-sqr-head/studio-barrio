@@ -49,13 +49,7 @@ export default async function PortfolioPage({
           {images?.map((image, key) => {
             return (
               <div className={`mb-4`} key={key}>
-                <Image
-                  alt={image.alt || "Project Image"}
-                  image={image}
-                  width={500}
-                  height={400}
-                  size="(min-width: 640px) 500px, 100vw"
-                />
+                <Image alt={image.alt || "Project Image"} image={image} />
               </div>
             );
           })}
@@ -73,15 +67,7 @@ export default async function PortfolioPage({
                 className="flex flex-col gap-4"
               >
                 <ListItem
-                  cardImage={
-                    <Image
-                      image={mainImage}
-                      alt={mainImage.alt}
-                      width={300}
-                      height={200}
-                      size="30vw"
-                    />
-                  }
+                  cardImage={<Image image={mainImage} alt={mainImage.alt} />}
                   title={title}
                   category={category}
                   preview={preview}

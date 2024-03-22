@@ -39,7 +39,9 @@ const resolveTypographyComponent = (
       return (
         <h1
           {...props}
-          className={`${props?.className} text-4xl md:text-5xl font-bold text-${color}`}
+          className={`${
+            props?.className ?? ""
+          } text-2xl md:text-4xl font-bold text-${color}`}
         >
           {children}
         </h1>
@@ -48,7 +50,9 @@ const resolveTypographyComponent = (
       return (
         <h2
           {...props}
-          className={`${props?.className} text-3xl md:text-4xl font-bold text-${color}`}
+          className={`${
+            props?.className ?? ""
+          } text-3xl md:text-4xl font-bold text-${color}`}
         >
           {children}
         </h2>
@@ -57,7 +61,9 @@ const resolveTypographyComponent = (
       return (
         <h3
           {...props}
-          className={`${props?.className} text-2xl md:text-3xl font-bold text-${color}`}
+          className={`${
+            props?.className ?? ""
+          } text-2xl md:text-3xl font-bold text-${color}`}
         >
           {children}
         </h3>
@@ -66,7 +72,9 @@ const resolveTypographyComponent = (
       return (
         <h4
           {...props}
-          className={`${props?.className} text-xl md:text-2xl font-bold text-${color}`}
+          className={`${
+            props?.className ?? ""
+          } text-xl md:text-2xl font-bold text-${color}`}
         >
           {children}
         </h4>
@@ -75,7 +83,9 @@ const resolveTypographyComponent = (
       return (
         <h5
           {...props}
-          className={`${props?.className} text-lg md:text-xl font-bold text-${color}`}
+          className={`${
+            props?.className ?? ""
+          } text-lg md:text-xl font-bold text-${color}`}
         >
           {children}
         </h5>
@@ -84,7 +94,9 @@ const resolveTypographyComponent = (
       return (
         <h6
           {...props}
-          className={`${props?.className} text-md md:text-lg font-bold text-${color}`}
+          className={`${
+            props?.className ?? ""
+          } text-md md:text-lg font-bold text-${color}`}
         >
           {children}
         </h6>
@@ -93,7 +105,9 @@ const resolveTypographyComponent = (
       return (
         <p
           {...props}
-          className={`${props?.className} text-md md:text-lg font-light text-${color}`}
+          className={`${
+            props?.className ?? ""
+          } text-md md:text-lg font-light text-${color}`}
         >
           {children}
         </p>
@@ -102,7 +116,9 @@ const resolveTypographyComponent = (
       return (
         <p
           {...props}
-          className={`${props?.className} text-sm md:text-md font-light text-${color}`}
+          className={`${
+            props?.className ?? ""
+          } text-sm md:text-md font-light text-${color}`}
         >
           {children}
         </p>
@@ -111,7 +127,9 @@ const resolveTypographyComponent = (
       return (
         <p
           {...props}
-          className={`${props?.className} text-base md:text-lg font-normal text-${color}`}
+          className={`${
+            props?.className ?? ""
+          } text-base md:text-lg font-normal text-${color}`}
         >
           {children}
         </p>
@@ -120,7 +138,9 @@ const resolveTypographyComponent = (
       return (
         <p
           {...props}
-          className={`${props?.className} text-sm md:text-base font-normal text-${color}`}
+          className={`${
+            props?.className ?? ""
+          } text-sm md:text-base font-normal text-${color}`}
         >
           {children}
         </p>
@@ -129,7 +149,9 @@ const resolveTypographyComponent = (
       return (
         <p
           {...props}
-          className={`${props?.className} text-xs md:text-sm font-light text-${color}`}
+          className={`${
+            props?.className ?? ""
+          } text-xs md:text-sm font-light text-${color}`}
         >
           {children}
         </p>
@@ -138,7 +160,9 @@ const resolveTypographyComponent = (
       return (
         <p
           {...props}
-          className={`${props?.className} text-xs md:text-sm font-bold text-${color}`}
+          className={`${
+            props?.className ?? ""
+          } text-xs md:text-sm font-bold text-${color}`}
         >
           {children}
         </p>
@@ -146,7 +170,7 @@ const resolveTypographyComponent = (
 
     case "custom":
       return (
-        <p {...props} className={`${props?.className} text-${color}`}>
+        <p {...props} className={`${props?.className ?? ""} text-${color}`}>
           {children}
         </p>
       );
@@ -155,7 +179,9 @@ const resolveTypographyComponent = (
       return (
         <p
           {...props}
-          className={`${props?.className} text-base md:text-lg font-normal text-${color}`}
+          className={`${
+            props?.className ?? ""
+          } text-base md:text-lg font-normal text-${color}`}
         >
           {children}
         </p>

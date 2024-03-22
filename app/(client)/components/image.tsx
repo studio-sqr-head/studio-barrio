@@ -27,6 +27,7 @@ export function Image({ image, alt = "Cover image" }: SanityImageProps) {
           alt={alt}
           fill={true}
           src={imageUrl}
+          sizes="(max-width: 640px) 100vw, 640px"
           placeholder="blur"
           className="object-cover w-full h-full transition-transform duration-300 transform-gpu hover:scale-105 hover:shadow-xl"
           blurDataURL={blurImageUrl}

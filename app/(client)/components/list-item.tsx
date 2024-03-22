@@ -25,7 +25,7 @@ export const ListItem = ({
       </div>
 
       <div className="flex flex-col justify-center gap-3 sm:w-2/3 w-1">
-        <Typography variant="custom" className="text-3xl">
+        <Typography variant="custom" className="text-2xl">
           {title}
         </Typography>
         <div className="flex gap-1">

@@ -9,7 +9,6 @@ import { Typography } from "@/app/(client)/components/typography";
 export const Header = ({ title, description, navItems }: HeaderI) => {
   const pathname = usePathname();
   const isActivePath = (slug: string) => pathname.startsWith(`/${slug}`);
-  const activePath = navItems?.find(({ slug }) => isActivePath(slug));
 
   return (
     <header className="bg-gray-100">

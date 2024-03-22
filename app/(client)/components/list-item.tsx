@@ -24,7 +24,7 @@ export const ListItem = ({
         {cardImage}
       </div>
 
-      <div className="flex flex-col justify-center gap-3 w-2/3">
+      <div className="flex flex-col justify-center gap-3 sm:w-2/3 w-1">
         <Typography variant="custom" className="text-3xl">
           {title}
         </Typography>

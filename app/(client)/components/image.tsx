@@ -18,7 +18,7 @@ export function Image({ image, alt = "Cover image" }: SanityImageProps) {
 
   return (
     <div
-      className="relative overflow-hidden rounded-lg shadow-lg bg-gray-100"
+      className="relative overflow-hidden"
       style={{ width: "100%", aspectRatio: "16/9", height: "auto" }}
     >
       {imageUrl && (

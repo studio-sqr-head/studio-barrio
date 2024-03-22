@@ -28,14 +28,14 @@ export const Header = ({ title, description, navItems }: HeaderI) => {
               console.log(slug);
               return (
                 <Link href={`/${slug}`} key={`${title}-${slug}`}>
-                  <li className={`cursor-pointer`}>
+                  <div className={`cursor-pointer`}>
                     <Typography
                       variant="body1"
                       color={isActivePath(slug) ? "orange" : "gray"}
                     >
                       {title}
                     </Typography>
-                  </li>
+                  </div>
                 </Link>
               );
             })}

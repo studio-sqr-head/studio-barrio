@@ -11,7 +11,7 @@ export default async function Portfolio() {
 
   return (
     <div className="flex flex-col">
-      <ul className="grid sm:grid-cols-1 gap-12">
+      <div className="grid sm:grid-cols-1 gap-12">
         {projects?.map(
           (
             {
@@ -25,36 +25,34 @@ export default async function Portfolio() {
             index
           ) => {
             return (
-              <>
-                <li
-                  key={`${_id}-${Math.random().toString(36).substring(7)}`}
-                  className={`flex items-center ${
-                    index < projects.length - 1
-                      ? "border-b border-gray-200 pb-12"
-                      : ""
-                  }`}
-                >
-                  <ListItem
-                    cardImage={
-                      <Image
-                        image={mainImage}
-                        alt={mainImage.alt}
-                        width={400}
-                        height={300}
-                        size="(min-width: 640px) 400px, 100vw"
-                      />
-                    }
-                    title={title}
-                    category={category}
-                    preview={preview}
-                    href={`/portfolio/${slug}`}
-                  />
-                </li>
-              </>
+              <div
+                key={`${_id}-${Math.random().toString(36).substring(7)}`}
+                className={`flex items-center ${
+                  index < projects.length - 1
+                    ? "border-b border-gray-200 pb-12"
+                    : ""
+                }`}
+              >
+                <ListItem
+                  cardImage={
+                    <Image
+                      image={mainImage}
+                      alt={mainImage.alt}
+                      width={400}
+                      height={300}
+                      size="(min-width: 640px) 400px, 100vw"
+                    />
+                  }
+                  title={title}
+                  category={category}
+                  preview={preview}
+                  href={`/portfolio/${slug}`}
+                />
+              </div>
             );
           }
         )}
-      </ul>
+      </div>
     </div>
   );
 }

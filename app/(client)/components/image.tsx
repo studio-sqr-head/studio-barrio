@@ -6,9 +6,10 @@ import { generateImageUrl } from "@/sanity/lib/utils";
 export interface SanityImageProps {
   image?: SanityImageObject;
   alt?: string;
+  sizes: string;
 }
 
-export function Image({ image, alt = "Cover image" }: SanityImageProps) {
+export function Image({ image, alt = "Cover image", sizes }: SanityImageProps) {
   if (!image) {
     return null;
   }
@@ -17,19 +18,16 @@ export function Image({ image, alt = "Cover image" }: SanityImageProps) {
   const blurImageUrl = img?.blur(20).url();
 
   return (
-    <div
-      className="relative overflow-hidden"
-      style={{ width: "100%", aspectRatio: "16/9", height: "auto" }}
-    >
+    <div className="relative overflow-hidden" style={{ aspectRatio: "16/9" }}>
       {imageUrl && (
         <NextImage
           draggable={false}
           alt={alt}
           fill={true}
           src={imageUrl}
-          sizes="(max-width: 640px) 100vw, 640px"
+          sizes={sizes}
           placeholder="blur"
-          className="object-cover w-full h-full transition-transform duration-300 transform-gpu hover:scale-105 hover:shadow-xl"
+          className="sm:object-contain object-cover"
           blurDataURL={blurImageUrl}
         />
       )}

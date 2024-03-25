@@ -2,7 +2,7 @@ import Link from "next/link";
 import { PortableText } from "@portabletext/react";
 import { type PortableTextBlock } from "next-sanity";
 
-import { Chip } from "@/app/(client)/components/chip";
+import { Category } from "@/app/(client)/components/category";
 import { Typography } from "./typography";
 
 export const ListItem = ({
@@ -20,17 +20,15 @@ export const ListItem = ({
 }) => {
   return (
     <Link href={href} className="cursor-pointer flex sm:flex-row flex-col">
-      <div className="mb-3 sm:mb-0 sm:mr-12 mr-0 w-full sm:w-1/3">
-        {cardImage}
-      </div>
+      <div className="mb-3 sm:mb-0 w-full sm:w-1/2">{cardImage}</div>
 
-      <div className="flex flex-col justify-center gap-3 sm:w-2/3 w-full">
+      <div className="flex flex-col justify-center gap-1 sm:w-1/2 w-full">
         <Typography variant="custom" className="text-2xl">
           {title}
         </Typography>
         <div className="flex gap-1">
           {category.map(({ title }) => (
-            <Chip
+            <Category
               key={`${title}-${Math.random().toString(36).substring(7)}`}
               label={title}
             />

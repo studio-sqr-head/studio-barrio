@@ -21,6 +21,17 @@ export async function generateMetadata(): Promise<Metadata> {
     authors: metadata?.authors,
     keywords: metadata?.keywords,
     category: metadata?.category,
+    twitter: {
+      title: metadata?.title,
+      images: [
+        {
+          url: generateImageUrl({ image: metadata?.ogImage })?.url(),
+          alt: metadata?.title,
+        },
+      ],
+      creator: metadata?.authors?.map((author) => author.name).join(", "),
+      site: process.env.NEXT_PUBLIC_BASE_URL,
+    },
     openGraph: {
       title: metadata?.title,
       description: metadata?.description,
@@ -55,7 +66,7 @@ export default async function RootLayout({
         <section className="flex flex-col min-h-screen w-full">
           <Header title={title} description={description} navItems={navItems} />
 
-          <main className="flex-grow mx-auto max-w-7xl p-8 lg:p-12">
+          <main className="flex-grow mx-auto max-w-7xl p-6 sm:p-8 lg:p-12">
             {children}
           </main>
           <Footer

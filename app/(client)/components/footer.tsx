@@ -23,7 +23,7 @@ export const Footer = ({
           <Typography variant="subtitle2">{description}</Typography>
         </div>
 
-        <div className="flex text-sm sm:justify-end flex-wrap sm:items-end sm:flex-row flex-col items-start">
+        <div className="flex text-sm sm:justify-end flex-wrap sm:items-end sm:flex-row flex-col items-start sm:items-center">
           <FooterRow
             icon={<PersonSvg />}
             text={name}

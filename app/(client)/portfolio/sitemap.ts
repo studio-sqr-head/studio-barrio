@@ -10,7 +10,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ]);
 
   return projects.map(({ slug: { current } }) => ({
-    url: `${process.env.NEXT_PUBLIC_SITE_URL}/portfolio/${current}`,
+    url: `${process.env.NEXT_PUBLIC_BASE_URL}/portfolio/${current}`,
     lastModified: new Date(),
     changeFrequency: "always",
     priority: 1,

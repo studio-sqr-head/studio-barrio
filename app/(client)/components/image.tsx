@@ -7,9 +7,15 @@ export interface SanityImageProps {
   image?: SanityImageObject;
   alt?: string;
   sizes: string;
+  priority?: boolean;
 }
 
-export function Image({ image, alt = "Cover image", sizes }: SanityImageProps) {
+export function Image({
+  image,
+  alt = "Cover image",
+  sizes,
+  priority = false,
+}: SanityImageProps) {
   if (!image) {
     return null;
   }
@@ -27,8 +33,9 @@ export function Image({ image, alt = "Cover image", sizes }: SanityImageProps) {
           src={imageUrl}
           sizes={sizes}
           placeholder="blur"
-          className="sm:object-contain object-cover"
+          className="object-cover"
           blurDataURL={blurImageUrl}
+          priority={priority}
         />
       )}
     </div>

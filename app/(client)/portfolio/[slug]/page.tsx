@@ -76,6 +76,7 @@ export default async function PortfolioPage({
                       image={mainImage}
                       alt={mainImage.alt}
                       sizes={"(min-width: 640px) 25vw, 100vw"}
+                      priority={true}
                     />
                   }
                   title={title}

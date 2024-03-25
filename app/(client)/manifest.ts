@@ -12,16 +12,17 @@ export default async function manifest(): Promise<MetadataRoute.Manifest> {
   const { description, title } = metadata ?? {};
 
   return {
-    name: title,
-    short_name: title,
-    description,
-    start_url: "/portfolio",
+    name: title ?? "Studio Barrio",
+    short_name: title ?? "Studio Barrio",
+    description:
+      description ?? "Studio Barrio is a design UX studio based in Amsterdam.",
+    start_url: "/",
     display: "standalone",
     background_color: "#fff",
     theme_color: "#fff",
     icons: [
       {
-        src: "/favicon.png",
+        src: "/favicon",
         type: "image/png",
       },
       {

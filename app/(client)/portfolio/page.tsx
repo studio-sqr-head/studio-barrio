@@ -39,6 +39,7 @@ export default async function Portfolio() {
                       image={mainImage}
                       alt={mainImage.alt}
                       sizes={"(min-width: 640px) 25vw, 100vw"}
+                      priority={index < 3}
                     />
                   }
                   title={title}

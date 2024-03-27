@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { Viewport, type Metadata } from "next";
 import "@/styles/globals.css";
 import { montserrat, arimo } from "@/styles/fonts";
 
@@ -11,36 +11,43 @@ import { generateImageUrl } from "@/sanity/lib/utils";
 import { HeaderI, FooterI } from "@/sanity/schemas";
 import { headerQuery, footerQuery } from "@/sanity/lib/queries";
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#FF7C4D",
+};
 export async function generateMetadata(): Promise<Metadata> {
   const [metadata] = await Promise.all([
     sanityFetch<MetadataI>({ query: metadataQuery }),
   ]);
+  const { ogImage, title, description, authors, keywords, category } =
+    metadata ?? {};
   return {
-    title: metadata?.title,
-    description: metadata?.description,
-    authors: metadata?.authors,
-    keywords: metadata?.keywords,
-    category: metadata?.category,
+    title,
+    description,
+    authors,
+    keywords,
+    category,
     twitter: {
-      title: metadata?.title,
+      title,
       images: [
         {
           url: generateImageUrl({ image: metadata?.ogImage })?.url(),
-          alt: metadata?.title,
+          alt: `A preview image for ${metadata?.title}`,
         },
       ],
       creator: metadata?.authors?.map((author) => author.name).join(", "),
       site: process.env.NEXT_PUBLIC_BASE_URL,
     },
     openGraph: {
-      title: metadata?.title,
+      title,
       description: metadata?.description,
       type: "website",
       url: process.env.NEXT_PUBLIC_BASE_URL,
       images: [
         {
           url: generateImageUrl({ image: metadata?.ogImage })?.url(),
-          alt: metadata?.title,
+          alt: `A preview image for ${metadata?.title}`,
         },
       ],
     },
@@ -65,7 +72,6 @@ export default async function RootLayout({
       <body className={`${arimo?.variable} ${montserrat?.variable}`}>
         <section className="flex flex-col min-h-screen w-full">
           <Header title={title} description={description} navItems={navItems} />
-
           <main className="flex-grow mx-auto max-w-7xl p-6 sm:p-8 lg:p-12">
             {children}
           </main>

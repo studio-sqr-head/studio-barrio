@@ -19,6 +19,9 @@ export default async function manifest(): Promise<MetadataRoute.Manifest> {
     display: "standalone",
     background_color: "#ffffff",
     theme_color: "#FF7C4D",
+    start_url: "/portfolio",
+    orientation: "portrait",
+    lang: "en",
     icons: [
       {
         src: "/icon.ico",
@@ -49,6 +52,12 @@ export default async function manifest(): Promise<MetadataRoute.Manifest> {
         src: "/android-chrome-512x512.png",
         sizes: "512x512",
         type: "image/png",
+      },
+      {
+        src: "path/to/maskable_icon.png",
+        sizes: "196x196",
+        type: "image/png",
+        purpose: "maskable", // <-- New property value `"maskable"`
       },
     ],
   };

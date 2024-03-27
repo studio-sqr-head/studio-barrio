@@ -32,22 +32,22 @@ export async function generateMetadata(): Promise<Metadata> {
       title,
       images: [
         {
-          url: generateImageUrl({ image: metadata?.ogImage })?.url(),
-          alt: `A preview image for ${metadata?.title}`,
+          url: generateImageUrl({ image: ogImage })?.url(),
+          alt: `A preview image for ${title}`,
         },
       ],
-      creator: metadata?.authors?.map((author) => author.name).join(", "),
+      creator: authors?.map((author) => author.name).join(", "),
       site: process.env.NEXT_PUBLIC_BASE_URL,
     },
     openGraph: {
       title,
-      description: metadata?.description,
+      description: description,
       type: "website",
       url: process.env.NEXT_PUBLIC_BASE_URL,
       images: [
         {
-          url: generateImageUrl({ image: metadata?.ogImage })?.url(),
-          alt: `A preview image for ${metadata?.title}`,
+          url: generateImageUrl({ image: ogImage })?.url(),
+          alt: `A preview image for ${title}`,
         },
       ],
     },

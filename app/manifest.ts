@@ -21,44 +21,8 @@ export default async function manifest(): Promise<MetadataRoute.Manifest> {
     theme_color: "#FF7C4D",
     start_url: "/portfolio",
     orientation: "portrait",
+    id: "com.studiobarrio",
     lang: "en",
-    icons: [
-      {
-        src: "/icon.ico",
-        sizes: "any",
-        type: "image/x-icon",
-      },
-      {
-        src: "/icon-16x16.png",
-        sizes: "16x16",
-        type: "image/png",
-      },
-      {
-        src: "/icon-32x32.png",
-        sizes: "32x32",
-        type: "image/png",
-      },
-      {
-        src: "/apple-touch-icon.png",
-        sizes: "180x180",
-        type: "image/png",
-      },
-      {
-        src: "/android-chrome-192x192.png",
-        sizes: "192x192",
-        type: "image/png",
-      },
-      {
-        src: "/android-chrome-512x512.png",
-        sizes: "512x512",
-        type: "image/png",
-      },
-      {
-        src: "path/to/maskable_icon.png",
-        sizes: "196x196",
-        type: "image/png",
-        purpose: "maskable", // <-- New property value `"maskable"`
-      },
-    ],
+    display_override: ["standalone"],
   };
 }
